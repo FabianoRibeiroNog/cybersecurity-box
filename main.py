@@ -25,13 +25,25 @@ for rede in redes:
     bssid = binascii.hexlify(rede[1], ":").decode("utf-8")
     canal = rede[2]
     rssi = rede[3]
-    codigo_seguranca = rede[4]
 
+    codigo_seguranca = rede[4]
     seguranca = tiposSeguranca.get(codigo_seguranca, "DESCONHECIDA")
+
+    oculta = rede[5]
+    ocultaTexto = "Sim" if oculta else "Não"
+
+    if rssi >= -60:
+        quality = "STRONG"
+    elif rssi >= -75:
+        quality = "MEDIUM"
+    else:
+        quality = "WEAK"
 
     print("SSID: ", ssid)
     print("BSSID: ", bssid)
     print("CANAL: ", canal)
     print("RSSI", rssi)
     print("SEGURANCA: ", seguranca)
+    print("OCULTA: ", ocultaTexto)
+    print("SIGNAL: ", quality)
     print("-------------------")
