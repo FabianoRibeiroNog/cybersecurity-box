@@ -1,7 +1,8 @@
 import network
 import binascii
 
-SECURITY_TYPES = {
+
+TIPOS_SEGURANCA = {
     0: "OPEN",
     1: "WEP",
     2: "WPA-PSK",
@@ -9,51 +10,69 @@ SECURITY_TYPES = {
     4: "WPA/WPA2-PSK"
 }
 
-def classifySignal(rssi):
+
+def classificar_sinal(rssi):
     if rssi >= -60:
-        return = "STRONG"
+        return "FORTE"
     elif rssi >= -75:
-        return = "MEDIUM"
+        return "MEDIO"
     else:
-        return = "WEAK"
+        return "FRACO"
 
-def format_bssid(bssid):
-    return binascii.hexlify(rede[1], ":").decode("utf-8")
 
-def get_security(code):
-    return SECURITY_TYPES.get(code, "DESCONHECIDA")
+def formatar_bssid(bssid):
+    return binascii.hexlify(bssid, ":").decode("utf-8")
 
-print("Cybersecurity Box iniciada!")
-print("Iniciando Wi-fi Monitor...")
 
-wlan = network.WLAN(network.WLAN.IF_STA)
-wlan.active(True)
+def obter_seguranca(codigo):
+    return TIPOS_SEGURANCA.get(codigo, "DESCONHECIDA")
 
-redes = wlan.scan()
 
-print("Redes encontradas: ", len(redes))
-print()
+def escanear_redes():
+    wlan = network.WLAN(network.WLAN.IF_STA)
+    wlan.active(True)
 
-for rede in redes:
+    print("Escaneando redes Wi-Fi...")
+
+    redes = wlan.scan()
+
+    return redes
+
+
+def exibir_rede(rede):
     ssid = rede[0].decode("utf-8")
-    bssid = format_bssid(rede[1])
+    bssid = formatar_bssid(rede[1])
     canal = rede[2]
     rssi = rede[3]
-
-    codigo_seguranca = rede[4]
-    seguranca = SECURITY_TYPES.get(codigo_seguranca, "DESCONHECIDA")
+    seguranca = obter_seguranca(rede[4])
 
     oculta = rede[5]
-    ocultaTexto = "Sim" if oculta else "Não"
+    oculta_texto = "SIM" if oculta else "NAO"
 
-    quality = classifySignal(rssi)
+    qualidade = classificar_sinal(rssi)
+
+    print("SSID:", ssid)
+    print("BSSID:", bssid)
+    print("CANAL:", canal)
+    print("RSSI:", rssi, "dBm")
+    print("SINAL:", qualidade)
+    print("SEGURANCA:", seguranca)
+    print("OCULTA:", oculta_texto)
+    print("--------------------")
 
 
-    print("SSID: ", ssid)
-    print("BSSID: ", bssid)
-    print("CANAL: ", canal)
-    print("RSSI", rssi)
-    print("SEGURANCA: ", seguranca)
-    print("OCULTA: ", ocultaTexto)
-    print("SIGNAL: ", quality)
-    print("-------------------")
+def main():
+    print("Cybersecurity Box iniciada!")
+    print("Iniciando Wi-Fi Monitor...")
+    print()
+
+    redes = escanear_redes()
+
+    print("Redes encontradas:", len(redes))
+    print()
+
+    for rede in redes:
+        exibir_rede(rede)
+
+
+main()
