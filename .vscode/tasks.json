@@ -14,6 +14,18 @@
             "problemMatcher": []
         },
         {
+            "label": "ESP32: Upload Secrets",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\upload-secrets.ps1"
+            ],
+            "problemMatcher": []
+        },
+        {
             "label": "ESP32: Device Info",
             "type": "shell",
             "command": "powershell",

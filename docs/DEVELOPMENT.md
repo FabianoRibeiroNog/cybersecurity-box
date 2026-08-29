@@ -37,3 +37,25 @@ Device automation will use mpremote.
 Automation scripts will live inside:
 
 scripts/
+
+## Local Wi-Fi Secrets
+
+Real Wi-Fi credentials must stay outside the repository and workspace.
+Create this file manually on the host when NTP testing is needed:
+
+`$HOME\.cybersecurity-box\wifi_secrets.py`
+
+Use this format:
+
+```python
+WIFI_SSID = "..."
+WIFI_PASSWORD = "..."
+```
+
+Upload it to the ESP32 only with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\upload-secrets.ps1
+```
+
+Do not place real credentials in `firmware/esp32/`.
