@@ -1,4 +1,7 @@
 .venv/
 .idea/
 __pycache__
-*.pyc
+*.pyc**/__pycache__/
+.mpy_cache/
+wifi_secrets.py
+**/wifi_secrets.py
