@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "ESP32: Upload Firmware",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\upload.ps1"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "ESP32: Device Info",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\device-info.ps1"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "ESP32: Soft Reset",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\reset.ps1"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "ESP32: REPL",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\repl.ps1"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
