@@ -1,10 +1,15 @@
 import time
+import time_sync
 import wifi_monitor
 
 INTERVALO_SCAN = 10
+UTC_OFFSET_HORAS = -3
 
-def obter_horario():
-    agora = time.localtime()
+def obter_horario(offset_horas=UTC_OFFSET_HORAS):
+    if offset_horas:
+        agora = time.localtime(time.time() + (offset_horas * 3600))
+    else:
+        agora = time.localtime()
 
     ano = agora[0]
     mes = agora[1]
@@ -18,6 +23,16 @@ def obter_horario():
 
 def main():
     print("Cybersecurity Box iniciada!")
+    print("Sincronizando horario via NTP...")
+
+    if not time_sync.sincronizar_horario():
+        print("Aviso: NTP indisponivel. Continuando com horario atual do RTC.")
+
+    if UTC_OFFSET_HORAS == 0:
+        print("Timestamps em UTC.")
+    else:
+        print("Timestamps com offset UTC", UTC_OFFSET_HORAS)
+
     print("Iniciando Wi-Fi Monitor...")
     print()
 
@@ -59,7 +74,7 @@ def main():
                 print("======================")
                 print("!!! NOVA REDE DETECTADA !!!")
                 print("======================")
-                print("HORÁRIO: ", horario_deteccao)
+                print("HORARIO DA DETECCAO: ", horario_deteccao)
                 wifi_monitor.exibir_rede(rede)
 
         redes_conhecidas.update(bssids_atuais)
